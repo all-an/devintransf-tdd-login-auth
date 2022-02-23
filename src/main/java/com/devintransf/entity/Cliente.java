@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import lombok.Data;
 
 @Entity
@@ -20,6 +22,7 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@CPF(message="Cpf Inválido!")
 	@Column(nullable = false)
 	private String cpf; 
 	@Column(nullable = false)
