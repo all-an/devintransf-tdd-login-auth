@@ -7,3 +7,5 @@
 - Spring Boot 2
 - H2 Database
 - JUnit 4
+- Lombok 1.18.22
+
