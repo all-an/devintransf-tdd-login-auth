@@ -5,13 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.devintransf.entity.Client;
+import com.devintransf.entity.Cliente;
 
 @RunWith(SpringRunner.class)
-@ActiveProfiles("test")
+@SpringBootTest
 public class ClientRepositoryTest {
 	
 	@Autowired
@@ -19,13 +19,14 @@ public class ClientRepositoryTest {
 	
 	@Test
 	public void testSave() {
-		Client c = new Client();
-		c.setCpf("868686868686");
+		Cliente c = new Cliente();
+		
+		c.setCpf("8754665352");
 		c.setName("Teste");
 		c.setPassword("123456");
 		c.setEmail("client@client.com");
 		
-		Client responseClient = repository.save(c);
+		Cliente responseClient = repository.save(c);
 		
 		assertNotNull(responseClient);
 	}

@@ -12,7 +12,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Client implements Serializable {
+public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = -3956695964851057242L;
 	
@@ -22,13 +22,10 @@ public class Client implements Serializable {
 	
 	@Column(nullable = false)
 	private String cpf; 
-	
 	@Column(nullable = false)
 	private String name;
-	
 	@Column(nullable = false)
 	private String password;
-	
 	@Column(nullable = false)
 	private String email;
 
