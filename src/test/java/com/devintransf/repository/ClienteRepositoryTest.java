@@ -18,12 +18,12 @@ import com.devintransf.entity.Cliente;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ClientRepositoryTest {
+public class ClienteRepositoryTest {
 	
 	private static final String EMAIL = "email@teste.com";
 	
 	@Autowired
-	ClientRepository repository;
+	ClienteRepository repository;
 	
 	@Before
 	public void setUp() {

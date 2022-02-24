@@ -7,5 +7,6 @@
 - Spring Boot 2
 - H2 Database
 - JUnit 4
+- Mockito
 - Lombok 1.18.22
 

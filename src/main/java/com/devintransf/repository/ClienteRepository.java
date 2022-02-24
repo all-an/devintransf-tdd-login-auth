@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.devintransf.entity.Cliente;
 
-public interface ClientRepository extends JpaRepository<Cliente, Long> {
+public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	
 	Optional<Cliente> findByEmailEquals(String email);
 
