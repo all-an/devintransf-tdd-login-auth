@@ -8,5 +8,16 @@
 - H2 Database
 - JUnit 4
 - Mockito
-- Lombok 1.18.22
+- Lombok 1.18
+- PostgreSQL 12
+- FlywayDB
+
+### Executando:
+
+```bash
+git clone https://github.com/all-an/devintransf-tdd-login-auth.git
+cd devintransf-tdd-login-auth
+Run 
+Acesse os endpoints através da url http://localhost:8080
+```
 
