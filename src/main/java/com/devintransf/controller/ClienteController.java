@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devintransf.entity.Cliente;
+import com.devintransf.response.Response;
 import com.devintransf.service.ClienteService;
 
 @RestController
@@ -27,7 +28,7 @@ public class ClienteController {
 		
 		Cliente cliente = service.save(this.convertDtoToEntity(dto));
 		
-		response.se
+		response.setData(this.convertEntityToDto(cliente));
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
