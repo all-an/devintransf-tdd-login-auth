@@ -27,6 +27,11 @@ public class ClienteController {
 	public ResponseEntity<Response<ClienteDTO>> create(@Valid @RequestBody ClienteDTO dto, BindingResult result){
 		Response<ClienteDTO> response = new Response<ClienteDTO>();
 		
+		if(result.hasErrors()) {
+			result.getAllErrors().forEach(e -> response.getErrors().add(e.getDefaultMessage()));
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
+		
 		Cliente cliente = service.save(this.convertDtoToEntity(dto));
 		
 		response.setData(this.convertEntityToDto(cliente));
@@ -36,6 +41,7 @@ public class ClienteController {
 	
 	private Cliente convertDtoToEntity(ClienteDTO dto) {
 		Cliente c = new Cliente();
+		c.setId(dto.getId());
 		c.setEmail(dto.getEmail());
 		c.setName(dto.getName());
 		c.setPassword(dto.getPassword());
@@ -45,6 +51,7 @@ public class ClienteController {
 	
 	private ClienteDTO convertEntityToDto(Cliente c) {
 		ClienteDTO dto = new ClienteDTO();
+		dto.setId(c.getId());
 		dto.setEmail(c.getEmail()); 
 		dto.setName(c.getName());
 		dto.setPassword(c.getPassword());

@@ -1,5 +1,6 @@
 package com.devintransf.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
@@ -28,6 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ActiveProfiles("test")
 public class ClienteControllerTest {
 	
+	private static final Long ID = 1L;
 	private static final String EMAIL = "email@teste.com";
 	private static final String NAME = "Cliente Test";
 	private static final String PASSWORD = "123456";
@@ -44,16 +46,32 @@ public class ClienteControllerTest {
 	@Test
 	public void testSave() throws Exception {
 		
-		BDDMockito.given(service.save(Mockito.any(Cliente.class))).willReturn(getMockUser());
+		BDDMockito.given(service.save(Mockito.any(Cliente.class))).willReturn(getMockUser()); //testando o service salvando no banco
 		
-		mvc.perform(MockMvcRequestBuilders.post(URL).content(getJsonPayLoad()) //performando um post mockado para testar o retorno status
+		mvc.perform(MockMvcRequestBuilders.post(URL).content(getJsonPayLoad(ID, EMAIL, NAME, PASSWORD)) //performando um post mockado para testar o retorno status
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
-		.andExpect(status().isCreated());
+		.andExpect(status().isCreated())
+		.andExpect(jsonPath("$.data.id").value(ID)) // abaixo testando retornos do json
+		.andExpect(jsonPath("$.data.email").value(EMAIL))
+		.andExpect(jsonPath("$.data.name").value(NAME))
+		.andExpect(jsonPath("$.data.password").value(PASSWORD));
+		
+		
+	}
+	
+	@Test
+	public void testSaveClienteInvalido() throws JsonProcessingException, Exception{
+		mvc.perform(MockMvcRequestBuilders.post(URL).content(getJsonPayLoad(ID, "email inválido", NAME, PASSWORD)) //performando um post mockado para testar o retorno status
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isBadRequest())
+		.andExpect(jsonPath("$.errors[0]").value("Email inválido"));
 	}
 
 	public Cliente getMockUser() {
 		Cliente cliente = new Cliente();
+		cliente.setId(ID);
 		cliente.setEmail(EMAIL);
 		cliente.setCpf(CPF);
 		cliente.setName(NAME);
@@ -62,12 +80,12 @@ public class ClienteControllerTest {
 		return cliente;
 	}
 	
-	public String getJsonPayLoad() throws JsonProcessingException {
+	public String getJsonPayLoad(Long id, String email, String name, String password) throws JsonProcessingException {
 		ClienteDTO dto = new ClienteDTO();
-		
-		dto.setEmail(EMAIL);
-		dto.setName(NAME);
-		dto.setPassword(PASSWORD);
+		dto.setId(id);
+		dto.setEmail(email);
+		dto.setName(name);
+		dto.setPassword(password);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(dto);
