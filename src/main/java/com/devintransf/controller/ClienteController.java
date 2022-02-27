@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.devintransf.dto.ClienteDTO;
 import com.devintransf.entity.Cliente;
 import com.devintransf.response.Response;
 import com.devintransf.service.ClienteService;
@@ -23,8 +24,8 @@ public class ClienteController {
 	private ClienteService service;
 	
 	@PostMapping
-	public ResponseEntity<Response<UserDTO>> create(@Valid @RequestBody UserDTO dto, BindingResult result){
-		Response<UserDTO> response = new Response<UserDTO>();
+	public ResponseEntity<Response<ClienteDTO>> create(@Valid @RequestBody ClienteDTO dto, BindingResult result){
+		Response<ClienteDTO> response = new Response<ClienteDTO>();
 		
 		Cliente cliente = service.save(this.convertDtoToEntity(dto));
 		
@@ -44,7 +45,7 @@ public class ClienteController {
 	
 	private ClienteDTO convertEntityToDto(Cliente c) {
 		ClienteDTO dto = new ClienteDTO();
-		dto.setEmail(c.getEmail());
+		dto.setEmail(c.getEmail()); 
 		dto.setName(c.getName());
 		dto.setPassword(c.getPassword());
 

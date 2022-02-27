@@ -13,8 +13,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.devintransf.dto.ClienteDTO;
 import com.devintransf.entity.Cliente;
 import com.devintransf.service.ClienteService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
@@ -53,11 +55,10 @@ public class ClienteControllerTest {
 		return cliente;
 	}
 	
-	public String getJsonPayLoad() {
+	public String getJsonPayLoad() throws JsonProcessingException {
 		ClienteDTO dto = new ClienteDTO();
 		
 		dto.setEmail(EMAIL);
-		dto.setCpf(CPF);
 		dto.setName(NAME);
 		dto.setPassword(PASSWORD);
 		
