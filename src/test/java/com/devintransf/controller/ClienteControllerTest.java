@@ -2,7 +2,10 @@ package com.devintransf.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.BDDMockito;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,8 +41,12 @@ public class ClienteControllerTest {
 	@Autowired
 	MockMvc mvc;
 	
+	@Test
 	public void testSave() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.post(URL).content(getJsonPayLoad())
+		
+		BDDMockito.given(service.save(Mockito.any(Cliente.class))).willReturn(getMockUser());
+		
+		mvc.perform(MockMvcRequestBuilders.post(URL).content(getJsonPayLoad()) //performando um post mockado para testar o retorno status
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isCreated());
