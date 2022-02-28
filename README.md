@@ -21,3 +21,51 @@ cd devintransf-tdd-login-auth
 Acesse os endpoints através da url http://localhost:8080
 ```
 
+### Exemplo body para POST inválido:
+
+```json
+{
+    "name": "Allan Abrahão",
+    "cpf": "1111111111",
+    "email": "email inválido",
+    "password": "12"
+}
+```
+
+### Resposta recebida / esperada:
+
+```json
+{
+    "data": null,
+    "errors": [
+        "Cpf Inválido!",
+        "A senha deve conter no minimo 6 caracteres",
+        "Email inválido"
+    ]
+}
+```
+
+### Exemplo de POST válido e resposta abaixo:
+
+```json
+{
+    "name": "Allan Abrahão",
+    "cpf": "coloque aqui o cpf válido",
+    "email": "email@teste.com",
+    "password": "1234567"
+}
+```
+
+#### Resposta
+
+```json
+{
+    "data": {
+        "id": 1,
+        "email": "email@teste.com",
+        "name": "Allan Abrahão",
+        "password": "1234567"
+    },
+    "errors": []
+}
+```

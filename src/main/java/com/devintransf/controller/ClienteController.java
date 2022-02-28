@@ -17,7 +17,7 @@ import com.devintransf.response.Response;
 import com.devintransf.service.ClienteService;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("clientes")
 public class ClienteController {
 
 	@Autowired
@@ -42,6 +42,7 @@ public class ClienteController {
 	private Cliente convertDtoToEntity(ClienteDTO dto) {
 		Cliente c = new Cliente();
 		c.setId(dto.getId());
+		c.setCpf(dto.getCpf());
 		c.setEmail(dto.getEmail());
 		c.setName(dto.getName());
 		c.setPassword(dto.getPassword());
@@ -52,6 +53,7 @@ public class ClienteController {
 	private ClienteDTO convertEntityToDto(Cliente c) {
 		ClienteDTO dto = new ClienteDTO();
 		dto.setId(c.getId());
+		dto.setCpf(c.getCpf());
 		dto.setEmail(c.getEmail()); 
 		dto.setName(c.getName());
 		dto.setPassword(c.getPassword());

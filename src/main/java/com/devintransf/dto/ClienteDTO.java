@@ -6,6 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 import lombok.Data;
 
@@ -13,6 +14,9 @@ import lombok.Data;
 public class ClienteDTO {
 	
 	private Long id;
+	
+	@CPF(message="Cpf Inválido!")
+	private String cpf;
 	
 	@Email(message="Email inválido")
 	private String email;
