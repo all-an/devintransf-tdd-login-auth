@@ -15,6 +15,7 @@ import com.devintransf.dto.ClienteDTO;
 import com.devintransf.entity.Cliente;
 import com.devintransf.response.Response;
 import com.devintransf.service.ClienteService;
+import com.devintransf.util.Bcrypt;
 
 @RestController
 @RequestMapping("clientes")
@@ -45,7 +46,7 @@ public class ClienteController {
 		c.setCpf(dto.getCpf());
 		c.setEmail(dto.getEmail());
 		c.setName(dto.getName());
-		c.setPassword(dto.getPassword());
+		c.setPassword(Bcrypt.getHashPassword(dto.getPassword()));
 		
 		return c;
 	}
@@ -56,7 +57,6 @@ public class ClienteController {
 		dto.setCpf(c.getCpf());
 		dto.setEmail(c.getEmail()); 
 		dto.setName(c.getName());
-		dto.setPassword(c.getPassword());
 
 		return dto;
 	}

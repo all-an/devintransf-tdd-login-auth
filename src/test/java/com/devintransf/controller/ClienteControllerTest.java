@@ -35,7 +35,7 @@ public class ClienteControllerTest {
 	private static final String PASSWORD = "123456";
 	private static final String CPF = "09930093796";
 	
-	private static final String URL = "/user";
+	private static final String URL = "/clientes";
 	
 	@MockBean
 	ClienteService service;
@@ -48,21 +48,22 @@ public class ClienteControllerTest {
 		
 		BDDMockito.given(service.save(Mockito.any(Cliente.class))).willReturn(getMockUser()); //testando o service salvando no banco
 		
-		mvc.perform(MockMvcRequestBuilders.post(URL).content(getJsonPayLoad(ID, EMAIL, NAME, PASSWORD)) //performando um post mockado para testar o retorno status
+		mvc.perform(MockMvcRequestBuilders.post(URL).content(getJsonPayLoad(ID, CPF, EMAIL, NAME, PASSWORD)) //performando um post mockado para testar o retorno status
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isCreated())
 		.andExpect(jsonPath("$.data.id").value(ID)) // abaixo testando retornos do json
+		.andExpect(jsonPath("$.data.cpf").doesNotExist())
 		.andExpect(jsonPath("$.data.email").value(EMAIL))
 		.andExpect(jsonPath("$.data.name").value(NAME))
-		.andExpect(jsonPath("$.data.password").value(PASSWORD));
+		.andExpect(jsonPath("$.data.password").doesNotExist());
 		
 		
 	}
 	
 	@Test
 	public void testSaveClienteInvalido() throws JsonProcessingException, Exception{
-		mvc.perform(MockMvcRequestBuilders.post(URL).content(getJsonPayLoad(ID, "email inválido", NAME, PASSWORD)) //performando um post mockado para testar o retorno status
+		mvc.perform(MockMvcRequestBuilders.post(URL).content(getJsonPayLoad(ID, "cpf inválido","email inválido", NAME, PASSWORD)) //performando um post mockado para testar o retorno status
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isBadRequest())
@@ -79,10 +80,11 @@ public class ClienteControllerTest {
 		
 		return cliente;
 	}
-	
-	public String getJsonPayLoad(Long id, String email, String name, String password) throws JsonProcessingException {
+
+	public String getJsonPayLoad(Long id, String cpf, String email, String name, String password) throws JsonProcessingException {
 		ClienteDTO dto = new ClienteDTO();
 		dto.setId(id);
+		dto.setCpf(cpf);
 		dto.setEmail(email);
 		dto.setName(name);
 		dto.setPassword(password);

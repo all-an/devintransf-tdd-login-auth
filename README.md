@@ -11,6 +11,7 @@
 - Lombok 1.18
 - PostgreSQL 12
 - FlywayDB
+- Spring Boot Security
 
 ### Executando:
 
