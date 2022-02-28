@@ -18,7 +18,7 @@ public class ClienteDTO {
 	
 	private Long id;
 	
-	@CPF(message="Cpf Inválido!")
+	@CPF(message="Cpf inválido")
 	private String cpf;
 	
 	@Email(message="Email inválido")

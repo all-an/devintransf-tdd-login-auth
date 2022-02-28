@@ -53,7 +53,7 @@ public class ClienteControllerTest {
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isCreated())
 		.andExpect(jsonPath("$.data.id").value(ID)) // abaixo testando retornos do json
-		.andExpect(jsonPath("$.data.cpf").doesNotExist())
+		.andExpect(jsonPath("$.data.cpf").value(CPF))
 		.andExpect(jsonPath("$.data.email").value(EMAIL))
 		.andExpect(jsonPath("$.data.name").value(NAME))
 		.andExpect(jsonPath("$.data.password").doesNotExist());
@@ -67,7 +67,8 @@ public class ClienteControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isBadRequest())
-		.andExpect(jsonPath("$.errors[0]").value("Email inválido"));
+		.andExpect(jsonPath("$.errors[0]").value("Cpf inválido"))
+		.andExpect(jsonPath("$.errors[1]").value("Email inválido"));
 	}
 
 	public Cliente getMockUser() {
