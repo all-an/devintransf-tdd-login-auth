@@ -17,7 +17,7 @@
 ```bash
 git clone https://github.com/all-an/devintransf-tdd-login-auth.git
 cd devintransf-tdd-login-auth
-Run 
+//Abrir com Spring Tools Suite
 Acesse os endpoints através da url http://localhost:8080
 ```
 
